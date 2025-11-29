@@ -20,15 +20,26 @@ public class Student {
     @Column(name="email")
     private String emial;
 
+    @Column(name="Phone_Number")
+    private int phoneNumber;
+
     public Student() {
     }
 
-    public Student(String firstName, String lastName,String emial) {
+    public Student(String firstName, String lastName,String emial,int phoneNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.emial = emial;
+        this.phoneNumber = phoneNumber;
     }
 
+
+    public int getPhoneNumber() {
+        return phoneNumber;
+    }
+    public void setPhoneNumber(int phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
     public int getId() {
         return id;
     }
