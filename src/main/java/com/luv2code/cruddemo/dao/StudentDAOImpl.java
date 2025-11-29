@@ -10,8 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
-public abstract class StudentDAOImpl implements StudentDAO {
-
+public class StudentDAOImpl implements StudentDAO {
 
     private EntityManager entityManager;
 
@@ -48,5 +47,25 @@ public abstract class StudentDAOImpl implements StudentDAO {
     @Transactional
     public void update(Student theStudent) {
         entityManager.merge(theStudent);
+    }
+    @Override
+    @Transactional
+    public void delete(Integer id) {
+        Student theStudent = entityManager.find(Student.class, id);
+        entityManager.remove(theStudent);
+
+    }
+    @Override
+    @Transactional
+    public int deleteAll() {
+        int numberOfRows = entityManager.createQuery("delete from Student").executeUpdate();
+        return numberOfRows;
+    }
+
+    @Override
+    public List<Student> findByFirstName(String firstName) {
+        TypedQuery<Student> Name = entityManager.createQuery("From Student where firstName=:theData", Student.class);
+        Name.setParameter("theData", firstName);
+        return Name.getResultList();
     }
 }
